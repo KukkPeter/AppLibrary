@@ -1,0 +1,43 @@
+<main class="page" style="display: none;" id="Main">
+    <h1>Welcome here, <span id="Name"></span>.</h1>
+    <h2>Here are your data stored in Firebase:</h2>
+    <ul>
+        <li><strong>Display Name:</strong> <span id="displayName"></span></li>
+        <li><strong>Email:</strong> <span id="email"></span></li>
+        <li><strong>Email verified:</strong> <span id="email_verified"></span></li>
+        <li><strong>Phone number:</strong> <span id="phone"></span></li>
+        <li><strong>PhotoURL:</strong> <span id="photourl"></span></li>
+        <li><strong>UID:</strong> <span id="uid"></span></li>
+        <li><strong>ProviderID:</strong> <span id="providerid"></span></li>
+        <li><strong>Creation Time:</strong> <span id="creationtime"></span></li>
+        <li><strong>Last Sign in Time:</strong> <span id="lastSignInTime"></span></li>
+    </ul>
+    <hr>
+    <button class="btn btn-outline-danger" onclick="AuthSystem.Logout()">Logout</button>
+    <button class="btn btn-outline-info" id="sendVerificationBTN">Send verification email</button>
+    <button class="btn btn-danger" disabled title="This feature isn't available in v1.0.8.">Delete account</button>
+    <br>
+    <hr>
+    <div id="VersionsDIV"></div>
+    <script>
+        $('#Name').html((AuthSystem.User.displayName ? AuthSystem.User.displayName : "User"));
+        $('#displayName').html((AuthSystem.User.displayName ? AuthSystem.User.displayName : "User"));
+        $('#email').html((AuthSystem.User.email ? AuthSystem.User.email : "email@email.email"));
+        $('#email_verified').html((AuthSystem.User.emailVerified ? "true" : "false"));
+        $('#phone').html((AuthSystem.User.phoneNumber ? AuthSystem.User.phoneNumber : "null"));
+        $('#photourl').html((AuthSystem.User.photoURL ? AuthSystem.User.photoURL : "null"));
+        $('#uid').html(AuthSystem.User.uid);
+        $('#providerid').html(AuthSystem.User.providerId);
+        $('#creationtime').html(AuthSystem.User.metadata.creationTime);
+        $('#lastSignInTime').html(AuthSystem.User.metadata.lastSignInTime);
+
+        if(AuthSystem.User.emailVerified) {
+            $('#sendVerificationBTN').prop('disabled', true);
+        } else {
+            $('#sendVerificationBTN').on('click', AuthSystem.SendVerificationEmail);
+        }
+
+
+        $('#VersionsDIV').html(Versions('html'));
+    </script>
+</main>

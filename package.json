@@ -1,0 +1,54 @@
+{
+  "name": "applibrary",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always",
+    "dist":"electron-builder --publish always",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KukkPeter/AppLibrary.git"
+  },
+  "build": {
+    "appId": "com.github.kukkpeter.applibrary",
+    "copyright": "Kukk Péter © 2021",
+    "win": {
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": "false"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "KukkPeter",
+        "repo": "AppLibrary"
+      }
+    ]
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/KukkPeter/AppLibrary/issues"
+  },
+  "homepage": "https://github.com/KukkPeter/AppLibrary#readme",
+  "author": "Kukk Peter",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^16.0.1",
+    "electron-builder": "^22.14.5"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.0.1",
+    "ejs": "^3.1.6",
+    "electron-log": "^4.4.1",
+    "electron-store": "^8.0.1",
+    "electron-updater": "^4.6.1",
+    "express": "^4.17.2",
+    "jquery": "^3.6.0"
+  }
+}

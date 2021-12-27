@@ -1,0 +1,336 @@
+/**
+ * @license
+ * Copyright 2021 Kukk Péter
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+* {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
+html {box-sizing: border-box;}
+*, *:before, *:after {box-sizing: inherit;}
+html, body {height: 100%; margin: 0;}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background-color: #1A2933;
+  
+  border: 1px solid #48545c;
+  overflow-y: hidden;
+
+  color: #fff;
+}
+
+/*
+    DEFAULT STYLING
+*/
+
+h1 {
+  margin: 0 0 10px 0;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+p {
+  margin-top: 10px;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.page {
+    height: calc(100% - 32px);
+    margin-top: 32px;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+/*
+    TITLEBAR
+*/
+
+#titlebar {
+    display: block;
+    position: fixed;
+    height: 32px;
+    width: calc(100% - 2px);
+}
+  
+.maximized #titlebar {
+    width: 100%;
+    padding: 0;
+}
+  
+#titlebar {
+    padding: 4px;
+}
+  
+#titlebar #drag-region {
+    width: 100%;
+    height: 100%;
+    -webkit-app-region: drag;
+}
+  
+#titlebar {
+    color: #FFF;
+  }
+  
+#titlebar #drag-region {
+    display: grid;
+    grid-template-columns: auto 138px;
+}
+  
+#window-title {
+    grid-column: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 8px;
+    overflow: hidden;
+    font-family: "Segoe UI", sans-serif;
+    font-size: 12px;
+}
+  
+.maximized #window-title {
+    margin-left: 12px;
+}
+  
+#window-title span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 1.5;
+}
+
+#window-controls {
+    display: grid;
+    grid-template-columns: repeat(4, 46px);
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+}
+  
+#window-controls {
+    -webkit-app-region: no-drag;
+}
+  
+#window-controls .button {
+    grid-row: 1 / span 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+  
+@media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5),
+  (-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2),
+  (-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
+    #window-controls .icon {
+      width: 10px;
+      height: 10px;
+    }
+}
+  
+#window-controls .button {
+    user-select: none;
+}
+  
+#window-controls .button:hover {
+    background: rgba(255,255,255,0.1);
+}
+  
+#window-controls .button:active {
+    background: rgba(255,255,255,0.2);
+}
+  
+#close-button:hover {
+    background: #E81123 !important;
+}
+  
+#close-button:active {
+    background: #F1707A !important;
+}
+#close-button:active .icon {
+    filter: invert(1);
+}
+
+#update-button {
+    grid-column: 1;
+}
+
+.titlebarSeparator {
+    position: relative;
+}
+  
+.titlebarSeparator:after {
+    content: " ";
+    position: absolute;
+    border-left: 1px #48545c solid;
+    top: 20%;
+    right: 0;
+    height: 60%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#min-button {
+    grid-column: 2;
+}
+#max-button, #restore-button {
+    grid-column: 3;
+}
+#close-button {
+    grid-column: 4;
+}
+  
+#restore-button {
+    display: none !important;
+}
+  
+.maximized #restore-button {
+    display: flex !important;
+}
+  
+.maximized #max-button {
+    display: none;
+}
+
+/**/
+@keyframes colorchange
+{
+    0%   {background: rgb(255, 80, 0);}
+    33%  {background: rgb(255, 125, 0);}
+    66%  {background: rgb(255, 160, 0);}
+    100% {background: rgb(255, 80, 0);}
+}
+
+@-webkit-keyframes colorchange /* Safari and Chrome - necessary duplicate */
+{
+    0%   {background: rgb(255, 94, 0);}
+    33%  {background: rgb(255, 174, 0);}
+    66%  {background: rgb(255, 225, 0);}
+    100% {background: rgb(255, 94, 0);}
+}
+
+#UpdateModalHeader {
+    animation: colorchange 10s linear 1s infinite; /* animation-name followed by duration in seconds*/
+         /* you could also use milliseconds (ms) or something like 2.5s */
+    -webkit-animation: colorchange 10s linear 0s infinite alternate; /* Chrome and Safari */
+    height: 170px; 
+    align-items: center;
+    color: rgba(255,255,255,0.8);
+}
+
+#PasswordResetModalHeader {
+    height: 150px; 
+    align-items: center;
+    color: rgba(255,255,255,0.8);
+}
+
+.hidden {
+    display: none;
+}
+
+/*
+    UPDATE CSS
+*/
+
+.downloaded {
+    color: rgb(25,135,84);
+}
+
+.downloadingUpdate {
+    animation: frame_downloadingUpdate infinite 2.5s;
+}
+
+.newUpdateAvailable {
+    color: rgb(13,110,253);
+}
+
+.checkingForUpdate {
+    animation: frame_checkingForUpdate infinite 2.5s;
+}
+
+@keyframes frame_downloadingUpdate {    
+    25% {
+        color: rgb(25,135,84);
+    }
+
+    50% {
+        color: white;
+    }
+
+    75% {
+        color: rgb(25,135,84);
+    }
+
+    100% {
+        color: white;
+    }
+}
+
+@keyframes frame_checkingForUpdate {
+    25% {
+        color: rgb(13,110,253);
+    }
+
+    50% {
+        color: white;
+    }
+
+    75% {
+        color: rgb(13,110,253);
+    }
+
+    100% {
+        color: white;
+    }
+}
+
+/* 
+    Login with Google button 
+    Copyright: https://codepen.io/mupkoo/pen/YgddgB
+*/
+.login-with-google-btn {
+    transition: background-color 0.3s, box-shadow 0.3s;
+    padding: 10px 16px 12px 42px;
+    border: none;
+    border-radius: 3px;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+    color: #757575;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGcgZmlsbD0ibm9uZSIgZmlsbC1ydWxlPSJldmVub2RkIj48cGF0aCBkPSJNMTcuNiA5LjJsLS4xLTEuOEg5djMuNGg0LjhDMTMuNiAxMiAxMyAxMyAxMiAxMy42djIuMmgzYTguOCA4LjggMCAwIDAgMi42LTYuNnoiIGZpbGw9IiM0Mjg1RjQiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIGQ9Ik05IDE4YzIuNCAwIDQuNS0uOCA2LTIuMmwtMy0yLjJhNS40IDUuNCAwIDAgMS04LTIuOUgxVjEzYTkgOSAwIDAgMCA4IDV6IiBmaWxsPSIjMzRBODUzIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNNCAxMC43YTUuNCA1LjQgMCAwIDEgMC0zLjRWNUgxYTkgOSAwIDAgMCAwIDhsMy0yLjN6IiBmaWxsPSIjRkJCQzA1IiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48cGF0aCBkPSJNOSAzLjZjMS4zIDAgMi41LjQgMy40IDEuM0wxNSAyLjNBOSA5IDAgMCAwIDEgNWwzIDIuNGE1LjQgNS40IDAgMCAxIDUtMy43eiIgZmlsbD0iI0VBNDMzNSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZD0iTTAgMGgxOHYxOEgweiIvPjwvZz48L3N2Zz4=);
+    background-color: white;
+    background-repeat: no-repeat;
+    background-position: 12px 11px;
+}
+
+.login-with-google-btn:hover {
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25);
+}
+
+.login-with-google-btn:active {
+    background-color: #eeeeee;
+}
+
+.login-with-google-btn:focus {
+    outline: none;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px #c8dafc;
+}
+
+.login-with-google-btn:disabled {
+    filter: grayscale(100%);
+    background-color: #ebebeb;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.04), 0 1px 1px rgba(0, 0, 0, 0.25);
+    cursor: not-allowed;
+}

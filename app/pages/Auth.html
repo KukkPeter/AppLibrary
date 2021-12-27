@@ -1,0 +1,84 @@
+<main class="page" style="display: none; overflow-y: hidden;" id="Auth">
+  <style>
+    .form-signin,
+    .form-register {
+      width: 100%;
+      max-width: 330px;
+      padding: 15px;
+      margin: auto;
+    }
+
+    .form-signin .checkbox,
+    .form-register .checkbox {
+      font-weight: 400;
+    }
+
+    .form-signin .form-floating:focus-within
+    .form-register .form-floating:focus-within {
+      z-index: 2;
+    }
+
+    .form-signin input[type="email"] {
+      margin-bottom: -1px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .form-signin input[type="password"] {
+      margin-bottom: 10px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  </style>
+  <div class="text-center">
+    <div class="form-signin" id="FormSignin">
+      <form>
+        <br>
+        <h3 class="h3 mb-3 fw-normal">Sign in</h3>
+    
+        <div class="form-floating" style="color: black;">
+          <input type="email" class="form-control" id="inputEmail" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div>
+        <div class="form-floating" style="color: black;">
+          <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div>
+        <button class="w-100 btn btn-lg btn-primary" id="LoginBTN" type="button">Sign in</button>
+        <button type="button" class="btn btn-link mt-3" id="ForgotPasswordBTN">Forgot your password?</button>
+        <br>
+        <hr>
+        <button type="button" class="login-with-google-btn" id="LoginGoogleBTN">Sign in with Google</button>
+        <hr>
+        <p>Don't have a user account yet?<br><button class="btn btn-link" id="SignUpPage" onclick="$('#FormSignin').fadeOut(250, function() { $('#FormRegister').fadeIn(250)});" type="button">Sign up</button></p>
+      </form>
+      <hr>
+      <p class="mt-5 mb-3 text-muted">Kukk Péter © 2021</p>
+    </div>
+    <div class="form-register" id="FormRegister" style="display: none;">
+      <form>
+        <br>
+        <h3 class="h3 mb-3 fw-normal">Sign up</h3>
+    
+        <div class="form-floating" style="color: black;">
+          <input type="text" class="form-control" id="reg_inputUsername" placeholder="John Doe">
+          <label for="floatingInput">Username</label>
+        </div><br>
+        <div class="form-floating" style="color: black;">
+          <input type="email" class="form-control" id="reg_inputEmail" placeholder="name@example.com">
+          <label for="floatingInput">Email address</label>
+        </div><br>
+        <div class="form-floating" style="color: black;">
+          <input type="password" class="form-control" id="reg_inputPassword" placeholder="Password">
+          <label for="floatingPassword">Password</label>
+        </div><br>
+        <button class="w-100 btn btn-lg btn-primary" id="RegisterBTN" type="button">Sign up</button>
+        <hr>
+        <p>Already have a user account?<br><button class="btn btn-link" id="SignInPage" onclick="$('#FormRegister').fadeOut(250, function() { $('#FormSignin').fadeIn(250)});" type="button">Sign in</button></p>
+      </form>
+      <hr>
+      <p class="mt-5 mb-3 text-muted">Kukk Péter © 2021</p>
+    </div>
+  </div>
+  <script>AuthSystem.AssignButtons();</script>
+</main>
